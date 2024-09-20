@@ -1,21 +1,14 @@
-import torch
-import torch.nn as nn
-import torch.optim as optim
-
 from torch.utils.data import Dataset, DataLoader
 import torchvision.transforms as transforms
 from torchvision.datasets import ImageFolder
-import timm
 
-import matplotlib.pyplot as plt
-import numpy as np
-import os
 from pathlib import Path
-import pandas as pd
 
 
 current_dir = Path.cwd()
 train_dir = f"{current_dir}/data_cards/train"
+valid_dir = f"{current_dir}/data_cards/valid"
+test_dir = f"{current_dir}/data_cards/test"
 target_to_class = {v: k for k, v in ImageFolder(train_dir).class_to_idx.items()}
 
 
@@ -34,19 +27,18 @@ class PlayingCardDataset(Dataset):
         return self.data.classes
 
 
+# Image alterations
 transformation = transforms.Compose([
-    transforms.Resize((128, 128)),
-    transforms.ToTensor()
+    transforms.Resize((128, 128)),  # resizing images
+    transforms.ToTensor()  # transforming images to tensor
 ])
 
-dataset = PlayingCardDataset(data_dir=train_dir, transform=transformation)
-dataloader = DataLoader(dataset=dataset, batch_size=32, shuffle=True)
+# Creating the datasets
+train_dataset = PlayingCardDataset(data_dir=train_dir, transform=transformation)
+valid_dataset = PlayingCardDataset(data_dir=valid_dir, transform=transformation)
+test_dataset = PlayingCardDataset(data_dir=test_dir, transform=transformation)
 
-if __name__ == "__main__":
-    print(train_dir)
-    print(len(dataset))
-    print(dataset[0])
-    print(target_to_class)
-    print(dataset.classes)
-    image, label = dataset[0]
-    print(image.shape)
+# Creating the dataloaders
+train_loader = DataLoader(dataset=train_dataset, batch_size=32, shuffle=True)
+valid_loader = DataLoader(dataset=valid_dataset, batch_size=32, shuffle=False)
+test_loader = DataLoader(dataset=test_dataset, batch_size=32, shuffle=False)
