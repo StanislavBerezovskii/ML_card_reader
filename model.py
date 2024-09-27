@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class SimpleCardClassifier(nn.Module):
-    def __init__(self, num_classes=53):
+    def __init__(self, num_classes=2):
         super(SimpleCardClassifier, self).__init__()
         # defining all model parts
         self.base_model = timm.create_model("efficientnet_b0", pretrained=True)
@@ -20,4 +20,4 @@ class SimpleCardClassifier(nn.Module):
         return output
 
 
-model = SimpleCardClassifier(num_classes=53)
+model = SimpleCardClassifier(num_classes=2)

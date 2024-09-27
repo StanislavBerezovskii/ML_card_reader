@@ -3,6 +3,7 @@ import torch
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 from dataset import test_dir, transformation, train_dataset
 from model import model
@@ -44,15 +45,15 @@ def visualize_predictions(original_image, probabilities, class_names):
 
 
 # Example usage
-"""test_image = f"{test_dir}/five of diamonds/2.jpg"
-original_image, image_tensor = preprocess_image(test_image, transformation)
+test_image = f"{test_dir}/global_2000_sticker/2022_KW50_1 (1).JPG"
+"""original_image, image_tensor = preprocess_image(test_image, transformation)
 probabilities = predict(model, image_tensor, device)
 
 class_names = train_dataset.classes
 visualize_predictions(original_image, probabilities, class_names)"""
 
 test_images = glob(f"{test_dir}/*/*")
-test_examples = np.random.choice(test_images, 10)
+test_examples = np.random.choice(test_images, size=10)
 
 
 if __name__ == "__main__":
@@ -61,4 +62,7 @@ if __name__ == "__main__":
         original_image, image_tensor = preprocess_image(example, transformation)
         probabilities = predict(model, image_tensor, device)
         class_names = train_dataset.classes
-        visualize_predictions(original_image, probabilities, class_names)
+        image_name = os.path.basename(example)
+        #  visualize_predictions(original_image, probabilities, class_names)
+        #  print(f"Analyzing image: {image_name}, sticker probability: {probabilities[0]}")
+        print(f'"image": {image_name}, "probability": {probabilities[0]}, "class": {class_names[probabilities.argmax()]}')

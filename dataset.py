@@ -6,9 +6,9 @@ from pathlib import Path
 
 
 current_dir = Path.cwd()
-train_dir = f"{current_dir}/data_cards/train"
-valid_dir = f"{current_dir}/data_cards/valid"
-test_dir = f"{current_dir}/data_cards/test"
+train_dir = f"{current_dir}/data_global2000/train"
+valid_dir = f"{current_dir}/data_global2000/valid"
+test_dir = f"{current_dir}/data_global2000/test"
 target_to_class = {v: k for k, v in ImageFolder(train_dir).class_to_idx.items()}
 
 
