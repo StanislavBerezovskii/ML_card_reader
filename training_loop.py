@@ -1,9 +1,10 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
 
-from dataset import (train_loader, test_loader, valid_loader)
+from dataset import (current_dir, train_loader, test_loader, valid_loader)
 from model import model
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -54,3 +55,5 @@ def train_model(model, criterion, optimizer, num_epochs):
 
 if __name__ == "__main__":
     train_model(model=model, criterion=criterion, optimizer=optimizer, num_epochs=num_epochs)
+    file_name = os.path.join(current_dir, "global_2000_sticker_classifier.pth")
+    torch.save(model, file_name)

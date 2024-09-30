@@ -5,10 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-from dataset import test_dir, transformation, train_dataset
-from model import model
+from dataset import current_dir, test_dir, transformation, train_dataset
 from training_loop import device
 
+
+model = torch.load(f"{current_dir}/global_2000_sticker_classifier.pth", weights_only=False)
 
 # Load and preprocess the image
 def preprocess_image(image_path, transform):
