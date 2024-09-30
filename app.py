@@ -29,7 +29,7 @@ def get_image_prediction():
         })
 
 
-#  response = requests.post(url="http://127.0.0.1:5000/predict", files={'file': open(test_image, 'rb')})
+#  TODO response = requests.post(url="http://127.0.0.1:5000/predict", files={'file': open(test_image, 'rb')})
 
 
 if __name__ == '__main__':
